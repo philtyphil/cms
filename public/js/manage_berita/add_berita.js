@@ -9,13 +9,9 @@ $(document).ready(function()
         **/
 		$("#loadmenu").load(base_url+"user/loadmenu");
 		$("#loading").fadeOut("slow");
-		CKEDITOR.on('instanceReady', function(ev) {
-			ev.editor.on('paste', function(evt) { 
-			evt.data.dataValue = evt.data.dataValue.replace(/&nbsp;/g,'');
-			evt.data.dataValue = evt.data.dataValue.replace(/<p><\/p>/g,'');
-			console.log(evt.data.dataValue);
-		}, null, null, 9);
-		});
+		
+	 $('.summernote').summernote({height: 300, focus: true,codemirror: { theme: 'monokai'}});
+	
 	});
 	 $('#tags_1').tagsInput({width:'auto'});
 	 
@@ -32,7 +28,7 @@ function savingdata()
 	url = base_url+"berita/saveAddBerita";
 	data = {
 		judul 		: $("#judulberitaPhiltyphil").val(),
-		isi_berita 	: CKEDITOR.instances.berita.getData(),
+		isi_berita 	: $("#isi_berita").code(),	
 		kategori 	: $("#kategori").val(),
 		tags		: tagsInput,
 		gambar		: $("#photoImg").val(),
@@ -133,6 +129,7 @@ function imagesinglepost(FormDatas)
 			if(data.length > 1)
 			{
 				$("#loading").fadeOut("slow"); 
+				window.location.href= base_url +"berita";
 			}
 		}
 	}

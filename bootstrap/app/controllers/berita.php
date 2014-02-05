@@ -24,9 +24,7 @@ class Berita extends CI_Controller {
 			config_item('metrolab_bootstrap_style_responsive'),
 			config_item('metrolab_bootstrap_style_default'),
 			config_item('metrolab_bootstrap_clockface'),
-			config_item('summernote_bootstrap_css'),
-			config_item('summernote_css'),
-			config_item('summernote_font_awesome_css')
+			config_item('summernote_css')
 			
 		);
 		
@@ -271,6 +269,7 @@ class Berita extends CI_Controller {
 	function add()
 	{
 		$this->javascript = array(
+		
 				config_item('metrolab_jquery'),
 				config_item('metrolab_nicescroll'),
 				config_item('metrolab_bootstrap_min_js'),
@@ -284,7 +283,7 @@ class Berita extends CI_Controller {
 				config_item('metrolab_bootstrap_fileuploads'),
 				config_item('metrolab_bootstrap_jQueryTagsInputJs'),
 				config_item('metrolab_bootstrap_choosen'),
-				config_item('ckeditor'),
+				config_item('summernoteJS'),
 				config_item('add_berita')
 		);
 		$view['url_js']		= "<script type='text/javascript'>var base_url='" . config_item('base_url') ."';</script>";
@@ -329,7 +328,7 @@ class Berita extends CI_Controller {
 							$holdOn 	  = $holdOn.",".$holdTags[$i];
 						}
 					}
-					$judulSEO 	= str_replace(" ","-",$this->input->post("judul"));
+					$judulSEO 	= preg_replace('/[^a-zA-Z0-9\']/',"_",$this->input->post("judul"));
 					$judulSEO 	= $judulSEO . ".html";
 					unset($holdTags);
 					/*

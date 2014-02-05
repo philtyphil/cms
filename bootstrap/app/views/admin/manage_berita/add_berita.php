@@ -41,12 +41,76 @@
 	height: 100%;
 	z-index: 9999;
 	background: url(<?php echo config_item("base_url");?>public/images/default/loading.gif) 50% 50% no-repeat white;
+	
 }
+
 	</style>
  
 <body class="fixed-top">
-   <!-- BEGIN HEADER  -->
+  
 	<div id="loading"></div>
+    <!-- BEGIN HEADER -->
+   <div id="header" class="navbar navbar-inverse navbar-fixed-top">
+       <!-- BEGIN TOP NAVIGATION BAR -->
+       <div class="navbar-inner" style="background:none repeat scroll 0 0 #4A8BC2">
+           <div class="container-fluid" style="background:none repeat scroll 0 0 #4A8BC2">
+               <!--BEGIN SIDEBAR TOGGLE-->
+               <div class="sidebar-toggle-box hidden-phone">
+                   <div class="icon-reorder"></div>
+               </div>
+               <!--END SIDEBAR TOGGLE-->
+             
+               <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+               <a class="btn btn-navbar collapsed" id="main_menu_trigger" data-toggle="collapse" data-target=".nav-collapse">
+                   <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
+                   <span class="arrow"></span>
+               </a>
+               <!-- END RESPONSIVE MENU TOGGLER -->
+               <div id="top_menu" class="nav notify-row">
+                   <!-- BEGIN NOTIFICATION -->
+                   <ul class="nav top-menu">
+                    
+                   </ul>
+               </div>
+               <!-- END  NOTIFICATION -->
+               <div class="top-nav ">
+                   <ul class="nav pull-right top-menu" >
+                       <!-- BEGIN SUPPORT -->
+                       <li class="dropdown mtop5">
+
+                           <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Chat">
+                               <i class="icon-comments-alt"></i>
+                           </a>
+                       </li>
+                       <li class="dropdown mtop5">
+                           <a class="dropdown-toggle element" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Help">
+                               <i class="icon-headphones"></i>
+                           </a>
+                       </li>
+                       <!-- END SUPPORT -->
+                       <!-- BEGIN USER LOGIN DROPDOWN -->
+                       <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                               <img src="img/avatar1_small.jpg" alt="">
+                               <span class="username"><?php echo $this->session->userdata("username");?></span>
+                               <b class="caret"></b>
+                           </a>
+                           <ul class="dropdown-menu extended logout">
+                               <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
+                               <li><a href="#"><i class="icon-cog"></i> My Settings</a></li>
+                               <li><a href="<?php echo config_item("base_url")."logout";?>"><i class="icon-key"></i> Log Out</a></li>
+                           </ul>
+                       </li>
+                       <!-- END USER LOGIN DROPDOWN -->
+                   </ul>
+                   <!-- END TOP NAVIGATION MENU -->
+               </div>
+           </div>
+       </div>
+       <!-- END TOP NAVIGATION BAR -->
+   </div>
    <!-- END HEADER -->
    <!-- BEGIN CONTAINER -->
    <div id="container" class="row-fluid">
@@ -109,7 +173,7 @@
                 <!-- Penambahan Widget Philtyphil -->
                     <div class="widget orange">
                         <div class="widget-title">
-                        <h4><i class="icon-tasks"></i> <?php echo $function; ?> Add  </h4>
+                        <h4><i class="icon-tasks"></i> <?php echo ucfirst($function); ?> Add  </h4>
                             <span class="tools">
                                 <a href="javascript:;" class="icon-chevron-down"></a>
                             </span>
@@ -163,7 +227,8 @@
                                     <div class="tab-pane" id="tabsleft-tab2">
                                         <h3>Fill up step 2</h3>
                                         <div class="control-group">
-                                                <textarea class="ckeditor" id="berita" name="berita" ></textarea>
+                                               <!-- <textarea class="ckeditor" id="berita" name="berita" ></textarea>-->
+											   <div class="summernote" id="isi_berita"></div>
                                         </div>
 										<div class="control-group" id="add_judul_berita">
                                             <label class="control-label">Tags</label>

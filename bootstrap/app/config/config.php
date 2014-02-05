@@ -161,6 +161,7 @@ $config['summernote_font_awesome_css'] =  array(
 |--------------------------------------------------------------------------
 */
 $config['jquery'] 								= "public/js/jquery-1.10.2.min.js";
+$config['jquery1.9'] 								= "public/js/jquery-1.9.1.js";
 $config['ckeditor'] 							= "public/ckeditor/ckeditor.js";
 $config['login'] 								= "public/js/login.js";
 $config['register']								= "public/js/register.js";

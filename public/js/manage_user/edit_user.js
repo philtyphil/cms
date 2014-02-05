@@ -16,6 +16,7 @@ $(".chzn-select-deselect").chosen({allow_single_deselect:true});
 
 function save()
 {
+	$("#loading").fadeIn("slow");
 	var level 	= $("#edit_level_user").val();
 	var lvl		= level.split(" - ");
     var url 	= base_url+"user/editsave";
@@ -25,6 +26,11 @@ function save()
         password	:$("#edit_password_user").val(),
         email		:$("#edit_email_user").val(),
         no_telp		:$("#edit_notelp_user").val(),
+        gambar		:$("#photoImg").val(),
+        facebook	:$("#edit_facebook").val(),
+        twitter		:$("#edit_twitter").val(),
+        linkedin	:$("#edit_linkedin").val(),
+        googleplus	:$("#edit_googleplus").val(),
         blokir		:$("input[name=edit_blokir]:checked").val(),
         level		:lvl[1],
 		role_id		:lvl[0],
@@ -34,7 +40,35 @@ function save()
         {
             if(typeof(data.success) != "undefined" && data.success != "")
             {
-                window.location.href=base_url+"user";
+				if($("#photoImg").val() != "" && typeof($("#photoImg").val()) != "undefined")
+				{
+					
+					var data = new FormData();
+						jQuery.each($('#photoImg')[0].files, function(i, file) {
+						data.append('file-'+i, file);
+					});
+					url = base_url+"user/CreateImgProfil";
+					$.ajax({
+						data: data,
+						type: "POST",
+						url: url,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function(url) {
+						
+							$("#loading").fadeOut("slow");
+							alert("Edit Success!!");
+							window.location.href=base_url+"user";
+						}
+					});
+				}
+				else
+				{
+					$("#loading").fadeOut("slow");
+					alert("Edit Success!!");
+					window.location.href=base_url+"user";
+				}
             }
             if(typeof(data.error_username != "undefined") && data.error_username  != "")
             {
@@ -56,6 +90,7 @@ function save()
                 $("#menu_edit_notelp").addClass("error");
                 $("#error_notelp").html(data.error_notelp);
             }
+			
         },"json"
     )
 }

@@ -137,7 +137,7 @@ class User extends CI_Controller {
 		if($this->session->userdata("logged"))
 		{
 			if(preg_match("/^[a-zA-Z ]*$/", $username))
-			{
+			{	
 				$data = $this->usermodel->deleteuser($username);
 				return $data;
 			}
@@ -218,6 +218,7 @@ class User extends CI_Controller {
 				config_item('metrolab_bootstrap_jspulstate'),
 				config_item('metrolab_bootstrap_gritter'),
 				config_item('metrolab_bootstrap_pulstate'),
+				config_item('metrolab_bootstrap_fileuploads'),
 				config_item('edit_user')
 		);
 		$view['url_js']		= "<script type='text/javascript'>var base_url='" . config_item('base_url') ."';</script>";
@@ -266,6 +267,10 @@ class User extends CI_Controller {
 				$this->form_validation->set_rules('no_telp', 'Phone Number', 'trim|required|numeric');
 				$this->form_validation->set_rules('nama_lengkap', 'Your Name', 'trim|required');
 				$this->form_validation->set_rules('blokir', 'blokir', 'trim|required');
+				$this->form_validation->set_rules('facebook', 'Facebook', 'trim');
+				$this->form_validation->set_rules('twitter', 'Twitter', 'trim|xss_clean');
+				$this->form_validation->set_rules('linkedin', 'LinkedIn', 'trim|xss_clean');
+				$this->form_validation->set_rules('googleplus', 'Google+', 'trim|xss_clean');
 			
 				
 				if($this->form_validation->run() == FALSE)
@@ -285,6 +290,18 @@ class User extends CI_Controller {
 					}
 					if(validation_errors('blokir')!=NULL){
 						$view['error_blokir'] = strip_tags(form_error('blokir'));
+					}
+					if(validation_errors('facebook')!=NULL){
+						$view['error_facebook'] = strip_tags(form_error('facebook'));
+					}
+					if(validation_errors('twitter')!=NULL){
+						$view['error_twitter'] = strip_tags(form_error('twitter'));
+					}
+					if(validation_errors('linkedin')!=NULL){
+						$view['error_linkedin'] = strip_tags(form_error('linkedin'));
+					}
+					if(validation_errors('googleplus')!=NULL){
+						$view['error_googleplus'] = strip_tags(form_error('googleplus'));
 					}
 					echo json_encode($view);
 				}
@@ -371,6 +388,14 @@ class User extends CI_Controller {
 				echo json_encode($view);
 			}
 		}
+	}
+	
+	function CreateImgProfil()
+	{
+		$this->load->helper("img");
+		/** img(filenya,width,height,filename) - Helper Added By Philtyphil A.K.A Sulisto Nur Anggoro @philtyphils**/ 
+		img($_FILES,"200","150","imgprofil");
+		return false;
 	}
 	
 }

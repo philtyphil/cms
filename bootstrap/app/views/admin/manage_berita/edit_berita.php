@@ -103,7 +103,6 @@
                    <!-- END PAGE TITLE & BREADCRUMB-->
                </div>
             </div>
-			<textarea name="content"></textarea>
             <div class="row-fluid">
                 <div class="span12">
 				

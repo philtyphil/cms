@@ -384,6 +384,31 @@
                                          <span class="help-inline" id="error_username"></span>
                                      </div>
                                 </div>
+								<div class="control-group">
+                                    <label class="control-label">Image Upload</label>
+                                    <div class="controls">
+                                        <div data-provides="fileupload" class="fileupload fileupload-new">
+                                            <div style="width: 200px; height: 150px;" class="fileupload-new thumbnail">
+												<?php if(isset($data[0]['gambar'])): ?>
+												<img alt="" src="<?php echo config_item('base_url')."public/images/img_uploaded/imgprofil_".$data[0]['gambar'];?>">
+												<?php else: ?>
+                                                <img alt="" src="<?php echo config_item('base_url')."public/images/default/AAAAAA&text=no+image.gif";?>">
+												<?php endif; ?>
+											</div>
+                                            <div style="max-width: 200px; max-height: 150px; line-height: 20px;" class="fileupload-preview fileupload-exists thumbnail"></div>
+                                            <div>
+                                               <span class="btn btn-file"><span class="fileupload-new">Select image</span>
+                                               <span class="fileupload-exists">Change</span>
+                                               <input type="file" class="default" id="photoImg"></span>
+                                                <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Remove</a>
+                                            </div>
+                                        </div>
+                                        <span class="label label-important">NOTE!</span>
+                                         <span>
+                                         
+                                         </span>
+                                    </div>
+                                </div>
                                 <div class="control-group" id="menu_edit_email">
                                      <label class="control-label" for="inputError">Email</label>
                                      <div class="controls">
@@ -422,6 +447,35 @@
 									</select>
 								    </div>
                                 </div>
+								<div class="control-group" id="menu_edit_facebook">
+                                     <label class="control-label" for="inputError">Facebook</label>
+                                     <div class="controls">
+                                         <input type="text" id="edit_facebook" class="span6 popovers" value="<?php echo $data[0]['facebook'];?>" data-trigger="hover" data-content="Facebook link" data-original-title="Facebook" required=""/>
+                                         <span class="help-inline" id="error_facebook"></span>
+                                     </div>
+                                 </div>
+								 <div class="control-group" id="menu_edit_twitter">
+                                     <label class="control-label" for="inputError">Twitter</label>
+                                     <div class="controls">
+                                         <input type="text" id="edit_twitter" class="span6 popovers" value="<?php echo $data[0]['twitter'];?>" data-trigger="hover" data-content="Twitter link" data-original-title="Twitter" required=""/>
+                                         <span class="help-inline" id="error_facebook"></span>
+                                     </div>
+                                 </div>
+								 <div class="control-group" id="menu_edit_linkedin">
+                                     <label class="control-label" for="inputError">Linkedin</label>
+                                     <div class="controls">
+                                         <input type="text" id="edit_linkedin" class="span6 popovers" value="<?php echo $data[0]['linkedin'];?>" data-trigger="hover" data-content="LinkedIn link" data-original-title="LinkedIn" required=""/>
+                                         <span class="help-inline" id="error_linkedin"></span>
+                                     </div>
+                                 </div>
+								 <div class="control-group" id="menu_edit_googleplus">
+                                     <label class="control-label" for="inputError">Google+</label>
+                                     <div class="controls">
+                                         <input type="text" id="edit_googleplus" class="span6 popovers" value="<?php echo $data[0]['googleplus'];?>" data-trigger="hover" data-content="Google+ link" data-original-title="Google+" required=""/>
+                                         <span class="help-inline" id="googleplus"></span>
+                                     </div>
+                                 </div>
+								 
                                  <div class="form-actions">
                                      <button type="button" class="btn btn-success" onclick="javascript:save();">Save</button>
                                      <a href="<?php echo config_item("base_url")."user";?>"><button type="button" class="btn">Cancel</button></a>

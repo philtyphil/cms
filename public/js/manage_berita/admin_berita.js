@@ -47,7 +47,7 @@ function sendFile(file,editor,welEditable) {
         contentType: false,
         processData: false,
         success: function(url) {
-                editor.insertImage(welEditable, url);
+            editor.insertImage(welEditable, url);
         }
     });
 }

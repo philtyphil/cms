@@ -171,7 +171,8 @@ class Usermodel extends CI_Model{
 	{
 		if($this->session->userdata("logged"))
 		{
-			$this->db->where('username', $username);
+			$this->deleteImage($username);
+			$this->db->where('username', mysql_real_escape_string($username));
 			$data = $this->db->delete('users'); 
 			return $data;
 		}
@@ -198,7 +199,7 @@ class Usermodel extends CI_Model{
 	{
 		if($this->session->userdata("logged"))
 		{
-			$this->db->where("username",$str);
+			$this->db->where("username",mysql_real_escape_string($str));
 			$this->db->select("username");
 			$this->db->from("users");
 			$this->db->limit("1");
@@ -218,7 +219,7 @@ class Usermodel extends CI_Model{
 	{
 		if($this->session->userdata("logged"))
 		{
-			$this->db->where("username",$str);
+			$this->db->where("username",mysql_real_escape_string($str));
 			$this->db->limit("1");
 			$this->db->select("*");
 			$this->db->from("users");
@@ -238,28 +239,76 @@ class Usermodel extends CI_Model{
 	{
 		if(empty($r["password"]))
 		{
-			$updateData = array(
-				"nama_lengkap" => $r["nama_lengkap"],
-				"email" => $r["email"],
-				"no_telp" => $r["no_telp"],
-				"level" => $r["level"],
-				"blokir" => $r["blokir"],
-				"role_id" => $r["role_id"]
-			);
+			if(empty($r["gambar"]))
+			{
+				$updateData = array(
+					"nama_lengkap" => $r["nama_lengkap"],
+					"email" => $r["email"],
+					"no_telp" => $r["no_telp"],
+					"level" => $r["level"],
+					"blokir" => $r["blokir"],
+					"role_id" => $r["role_id"],
+					"facebook" => $r["facebook"],
+					"twitter" => $r["twitter"],
+					"linkedin" => $r["linkedin"],
+					"googleplus" => $r["googleplus"]
+				);
+			}
+			else
+			{
+				$updateData = array(
+					"nama_lengkap" => $r["nama_lengkap"],
+					"email" => $r["email"],
+					"no_telp" => $r["no_telp"],
+					"level" => $r["level"],
+					"blokir" => $r["blokir"],
+					"role_id" => $r["role_id"],
+					"gambar" => $r["gambar"],
+					"facebook" => $r["facebook"],
+					"twitter" => $r["twitter"],
+					"linkedin" => $r["linkedin"],
+					"googleplus" => $r["googleplus"]
+				);
+			}
 		}
 		else
 		{
-			$updateData = array(
-				"nama_lengkap" => $r["nama_lengkap"],
-				"password"	=> md5($r["password"]),
-				"email" => $r["email"],
-				"no_telp" => $r["no_telp"],
-				"level" => $r["level"],
-				"blokir" => $r["blokir"],
-				"role_id" => $r["role_id"]
-			);
+			if(empty($r["gambar"]))
+			{
+				$updateData = array(
+					"nama_lengkap" => $r["nama_lengkap"],
+					"password"	=> md5($r["password"]),
+					"email" => $r["email"],
+					"no_telp" => $r["no_telp"],
+					"level" => $r["level"],
+					"blokir" => $r["blokir"],
+					"role_id" => $r["role_id"],
+					"facebook" => $r["facebook"],
+					"twitter" => $r["twitter"],
+					"linkedin" => $r["linkedin"],
+					"googleplus" => $r["googleplus"]
+				);
+			}
+			else
+			{
+				$updateData = array(
+					"nama_lengkap" => $r["nama_lengkap"],
+					"password"	=> md5($r["password"]),
+					"email" => $r["email"],
+					"no_telp" => $r["no_telp"],
+					"level" => $r["level"],
+					"blokir" => $r["blokir"],
+					"role_id" => $r["role_id"],
+					"gambar" => $r["gambar"],
+					"facebook" => $r["facebook"],
+					"twitter" => $r["twitter"],
+					"linkedin" => $r["linkedin"],
+					"googleplus" => $r["googleplus"]
+				);
+			}
 		}
-		$this->db->where("username",$r['username']);
+		$this->deleteImage($r["username"]);
+		$this->db->where("username",mysql_real_escape_string($r['username']));
 		$data = $this->db->update("users",$updateData);
 		if($data)
 		{
@@ -354,6 +403,22 @@ class Usermodel extends CI_Model{
 			}
 			return $data;
 		}
+	}
+	
+	function deleteImage($r)
+	{
+		$this->db->limit("1");
+		$this->db->where("username",$r);
+		$this->db->select("gambar");
+		$this->db->from("users");
+		$data = $this->db->get();
+		if($data->num_rows() > 0)
+		{
+			$file = $data->result_array();
+			unset($data);
+			unlink("public/images/img_uploaded/imgprofil_".$file[0]['gambar']);
+		}
+		return false;
 	}
 }
 ?>

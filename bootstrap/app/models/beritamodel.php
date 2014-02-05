@@ -310,11 +310,12 @@ class Beritamodel extends CI_Model{
 	{
 		if(empty($o["gambar"]))
 		{
+			$berita = str_replace(" ","-",$o["judul"]);
 			$dataUpdate = array(
 				"last_edit" 	=> $o["last_edit"],
 				"isi_berita" 	=> str_replace("&nbsp;"," ",$o["isi_berita"]),
 				"judul" 		=> $o["judul"],
-				"judul_seo"		=> $berita . ".html",
+				"judul_seo"		=> preg_replace('/[^a-zA-Z0-9\']/',"_",$berita) . ".html",
 				"tag"			=> $o["tag"]
 			);
 			$this->db->where("id_berita",intval($o['id_berita']));
@@ -330,7 +331,7 @@ class Beritamodel extends CI_Model{
 				"last_edit" 	=> $o["last_edit"],
 				"isi_berita" 	=> str_replace("&nbsp;"," ",$o["isi_berita"]),
 				"judul" 		=> $o["judul"],
-				"judul_seo"		=> $berita . ".html",
+				"judul_seo"		=> preg_replace('/[^a-zA-Z0-9\']/',"_",$berita) . ".html",
 				"gambar"		=> $o["gambar"],
 				"tag"			=> $o["tag"]
 			);

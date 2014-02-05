@@ -87,7 +87,7 @@
                            <span class="divider">/</span>
                        </li>
                        <li>
-                           <a href="#">Manage <?php echo $function; ?> edit </a>
+                           <a href="#">Manage <?php echo ucfirst($function); ?> edit </a>
                           
                        </li>
                        
@@ -103,13 +103,14 @@
                    <!-- END PAGE TITLE & BREADCRUMB-->
                </div>
             </div>
+			<textarea name="content"></textarea>
             <div class="row-fluid">
                 <div class="span12">
 				
                 <!-- Penambahan Widget Philtyphil -->
                     <div class="widget orange">
                         <div class="widget-title">
-                        <h4><i class="icon-tasks"></i> <?php echo $function; ?> edit  </h4>
+                        <h4><i class="icon-tasks"></i> <?php echo ucfirst(htmlentities($function)); ?> edit  </h4>
                             <span class="tools">
                                 <a href="javascript:;" class="icon-chevron-down"></a>
                             </span>
@@ -175,9 +176,9 @@
 								<div class="control-group" id="menu_edit_berita">
                                      <label class="control-label" for="inputError">Isi Berita</label>
                                      <div class="controls">
-                                        <textarea class="ckeditor" id="editor1" name="editor1" >
+                                        <div class="summernote" id="editor1" >
 											<?php echo $data[0]["isi_berita"];?>
-										</textarea>
+										</div>
                                      </div>
 									 <span class="help-inline" id="error_edit_berita"></span>
                                 </div>

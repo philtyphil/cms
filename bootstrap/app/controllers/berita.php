@@ -180,12 +180,12 @@ class Berita extends CI_Controller {
 			config_item('metrolab_bootstrap_common'),
 			config_item('metrolab_bootstrap_fileuploads'),			
 			config_item('metrolab_bootstrap_jQueryTagsInputJs'),
-			config_item('ckeditor'),
+			config_item('summernoteJS'),
 			config_item('admin_berita')
 		);
 		$view['data'] 		= $this->beritamodel->getberitaedit($id);
 		$view['url_js']		= "<script type='text/javascript'>var base_url='" . config_item('base_url') ."';</script>";
-		$view['title']		= "Manage Berita - Philtyphil";
+		$view['title']		= "Manage Berita - Bekasi Utara";
 		$view['javascript'] = $this->javascript;
 		$view['css']		= $this->css;
 		$view['function']	= $this->router->fetch_class();
@@ -206,6 +206,7 @@ class Berita extends CI_Controller {
 		$this->load->library("MenuRoleAccess");
 		if($this->menuroleaccess->checkAccess($this->session->userdata("logged"),$this->session->userdata("role_id"),$this->router->fetch_class()))
 		{
+			
 			if($this->input->post("submit"))
 			{
 				$this->load->library('form_validation');
@@ -769,6 +770,20 @@ class Berita extends CI_Controller {
 				
 			}
 		}
+	}
+	
+	function saveimageeditor()
+	{
+		$name = $this->randomString();
+        $ext = explode('.',$_FILES['file']['name']);
+        $filename = $name.'.'.$ext[1];
+        $destination = 'public/images/img_uploaded/berita/'.$filename;
+        $location =  $_FILES["file"]["tmp_name"];
+        move_uploaded_file($location,$destination);
+        echo config_item('base_url')."public/images/img_uploaded/".$filename;
+	}
+	function randomString() {
+		return md5(rand(100, 200));
 	}
 	
 }

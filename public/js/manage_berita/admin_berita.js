@@ -11,6 +11,12 @@ $( document ).ready(function()
 		$("#editsave").click(function(){
 			saveeditberita();
 		});
+		$(".summernote").summernote({
+			height:300,
+			onImageUpload: function(files, editor, welEditable) {
+				sendFile(files[0],editor,welEditable);
+			}
+		});
 	});
 	$("#edit_nama_kategori").keyup(function()
 	{
@@ -29,7 +35,22 @@ $( document ).ready(function()
 	});
 	
 });
-
+function sendFile(file,editor,welEditable) {
+    data = new FormData();
+    data.append("file", file);
+	url = base_url+"berita/saveimageeditor";
+    $.ajax({
+        data: data,
+        type: "POST",
+        url: url,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(url) {
+                editor.insertImage(welEditable, url);
+        }
+    });
+}
 function editberita(id)
 {
 	window.location.href= base_url+"berita/edit/"+id;
@@ -37,15 +58,16 @@ function editberita(id)
 
 function saveeditberita()
 {
+
 	var tag = $("#tags_1").val();
-	var tags = tag.replace(new RegExp(",", 'g'), "|");
+	var tags = tag.replace(new RegExp(",", 'g'), ",");
 	var data = {
 		username	: $("#edit_username_berita").val(),
 		judul		: $("#edit_judul_berita").val(),
 		last_edit	: $("#edit_tanggal").val(),
 		id_berita	: $("#edit_id").val(),
 		gambar		: $("#photoImg").val(),
-		isi_berita	: CKEDITOR.instances.editor1.getData(),
+		isi_berita	: $("#editor1").code(),
 		tag			: tags,
 		submit		: "submit"
 	};
@@ -55,13 +77,23 @@ function saveeditberita()
 		if(data.sucess != "" && typeof(data.success) != "undefined")
 		{
 			if($("#photoImg").val() != ""){
-			var FormDatas = new FormData();
-			jQuery.each($('#photoImg')[0].files, function(i, file) {
-				FormDatas.append('file-'+i, file);
-			});
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', base_url+"berita/uploadImage", true);
-			xhr.send(FormDatas);
+				$("#loading").fadeIn("slow");
+				var FormDatas = new FormData();
+				jQuery.each($('#photoImg')[0].files, function(i, file) {
+					FormDatas.append('file-'+i, file);
+				});
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4) {
+						data = xhr.responseText;
+						if(data.length > 1)
+						{
+							imagebw(FormDatas);
+						}
+					}
+				}
+				xhr.open('POST', base_url+"berita/uploadImage", true);
+				xhr.send(FormDatas);
 			}
 			else
 			{
@@ -190,4 +222,38 @@ function deleting_kategori()
 		}
 	},json);
 	
+}
+
+function imagebw(FormDatas)
+{
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			data = xhr.responseText;
+			if(data.length > 1)
+			{
+				imagesinglepost(FormDatas);
+			}
+		}
+	}
+	xhr.open('POST', base_url+"berita/uploadImageBW", true);
+	xhr.send(FormDatas);
+}
+
+function imagesinglepost(FormDatas)
+{
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			data = xhr.responseText;
+			if(data.length > 1)
+			{
+				$("#loading").fadeOut("slow"); 
+				alert("Update Blog Success!!");
+				window.location.href= base_url +"berita";
+			}
+		}
+	}
+	xhr.open('POST', base_url+"berita/uploadImageSinglePost", true);
+	xhr.send(FormDatas);
 }

@@ -48,7 +48,7 @@ class User extends CI_Controller {
 		$view['title']		= "Manage Menu - Philtyphil";
 		$view['javascript'] = $this->javascript;
 		$view['css']		= $this->css;
-		$this->load->library("menuroleaccess");
+		$this->load->library("MenuRoleAccess");
 		if($this->menuroleaccess->checkAccess($this->session->userdata("logged"),$this->session->userdata("role_id"),$this->router->fetch_class()))
 		{
 			$view["data"]	= $this->usermodel->users();
@@ -62,7 +62,7 @@ class User extends CI_Controller {
 	
 	function getusers()
 	{
-		$this->load->library("menuroleaccess");
+		$this->load->library("MenuRoleAccess");
 		if($this->menuroleaccess->checkAccess($this->session->userdata("logged"),$this->session->userdata("role_id"),$this->router->fetch_class()))
 		{
 			$data = $this->usermodel->getusers();
@@ -154,7 +154,7 @@ class User extends CI_Controller {
 		if($this->session->userdata("logged")) 
 		{
 			
-			$this->load->library("menuroleaccess");
+			$this->load->library("MenuRoleAccess");
 			$view["data"] = $this->menuroleaccess->checkAccessMenu($this->session->userdata("role_id"));
 			foreach($view["data"] as $key => $value)
 			{
@@ -192,7 +192,7 @@ class User extends CI_Controller {
 		$view['css']		= $this->css;
 		$view['function']	= $this->router->fetch_class();
 		$view['role']		= $this->usermodel->getroleaccess();
-		$this->load->library("menuroleaccess");
+		$this->load->library("MenuRoleAccess");
 		if($this->menuroleaccess->checkAccess($this->session->userdata("logged"),$this->session->userdata("role_id"),$this->router->fetch_class()))
 		{
 			$this->load->view('admin/manage_user/add_user',$view);
@@ -227,7 +227,7 @@ class User extends CI_Controller {
 		$view['css']		= $this->css;
 		$view['function']	= $this->router->fetch_class();
 		$view['role']		= $this->usermodel->getroleaccess();
-		$this->load->library("menuroleaccess");
+		$this->load->library("MenuRoleAccess");
 		if($this->menuroleaccess->checkAccess($this->session->userdata("logged"),$this->session->userdata("role_id"),$this->router->fetch_class()))
 		{
 			$view["data"] = $this->usermodel->getuseredit($username);
@@ -256,7 +256,7 @@ class User extends CI_Controller {
 	function editsave()
 	{
 		
-		$this->load->library("menuroleaccess");
+		$this->load->library("MenuRoleAccess");
 		if($this->menuroleaccess->checkAccess($this->session->userdata("logged"),$this->session->userdata("role_id"),$this->router->fetch_class()))
 		{
 			$this->load->library('form_validation');
@@ -324,7 +324,7 @@ class User extends CI_Controller {
 	
 	function menuaccess($id)
 	{
-		$this->load->library("menuroleaccess");
+		$this->load->library("MenuRoleAccess");
 		if($this->menuroleaccess->checkAccess($this->session->userdata("logged"),$this->session->userdata("role_id"),$this->router->fetch_class()))
 		{
 			$data = $this->usermodel->menuaccess($id);
@@ -353,7 +353,7 @@ class User extends CI_Controller {
 	
 	function savemenuaccess()
 	{
-		$this->load->library("menuroleaccess");
+		$this->load->library("MenuRoleAccess");
 		if($this->menuroleaccess->checkAccess($this->session->userdata("logged"),$this->session->userdata("role_id"),$this->router->fetch_class()))
 		{
 			$this->load->library('form_validation');

@@ -305,9 +305,10 @@ class Usermodel extends CI_Model{
 					"linkedin" => $r["linkedin"],
 					"googleplus" => $r["googleplus"]
 				);
+				$this->deleteImage($r["username"]);
 			}
 		}
-		$this->deleteImage($r["username"]);
+		
 		$this->db->where("username",mysql_real_escape_string($r['username']));
 		$data = $this->db->update("users",$updateData);
 		if($data)
@@ -416,7 +417,10 @@ class Usermodel extends CI_Model{
 		{
 			$file = $data->result_array();
 			unset($data);
-			unlink("public/images/img_uploaded/imgprofil_".$file[0]['gambar']);
+			if(file_exists("public/images/img_uploaded/imgprofil_".$file[0]['gambar']))
+			{
+				unlink("public/images/img_uploaded/imgprofil_".$file[0]['gambar']);
+			}
 		}
 		return false;
 	}

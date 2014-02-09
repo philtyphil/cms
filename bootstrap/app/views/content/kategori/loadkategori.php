@@ -59,7 +59,7 @@ only screen and (max-width: 760px),
 </style>
 <div id="addButton" style="margin-bottom:20px;">
 	
-	<button type="button" class="btn btn-success" onclick="javascript:window.location.href='<?php echo config_item("base_url");?>berita/kategoriberitaadd'">
+	<button type="button" class="btn btn-success" onclick="javascript:window.location.href='<?php echo config_item("base_url");?>berita/actionkategori/add'">
 		<i class="icon-plus-sign"></i> Add Category
 	</button>
 </div>

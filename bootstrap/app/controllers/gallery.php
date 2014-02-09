@@ -1,13 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Berita extends CI_Controller {
+class Gallery extends CI_Controller {
 
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->helper('url');
-		$this->load->model('beritamodel');
-        $this->load->library('session');
+		$this->load->helper('url');$this->load->model('gallerymodel');$this->load->library('session');
 		$this->css = array(
 			
 			config_item('metrolab_bootstrap'),
@@ -43,7 +41,7 @@ class Berita extends CI_Controller {
 			config_item('metrolab_bootstrap_common'),
 			config_item('metrolab_bootstrap_jQueryTagsInputJs'),
 			config_item('summernoteJS'),
-			config_item('admin_berita')
+			config_item('admin_gallery')
 		);
 		
 	}
@@ -673,13 +671,7 @@ class Berita extends CI_Controller {
 			/** Jika actionnya add **/
 			if($action == "add")
 			{
-				$view['url_js']		= "<script type='text/javascript'>var base_url='" . config_item('base_url') ."';</script>";
-				$view['title']		= "Manage Kategori Berita - Philtyphil";
-				$view['javascript'] = $this->javascript;
-				$view['css']		= $this->css;
-				$view['function']	= $this->router->fetch_class();
-				$view['data']		= $this->beritamodel->getEditKategori($id);
-				$this->load->view("admin/manage_berita/addkategori",$view);
+			
 			}
 		}
 	}
@@ -693,22 +685,11 @@ class Berita extends CI_Controller {
 			if($this->input->post("submit"))
 			{
 				$this->load->library("form_validation");
-				if($this->input->post("action") == "add")
-				{
-					$this->form_validation->set_rules('nama_kategori', 'Nama Kategori ', 'trim|required|xss_clean');
-					$this->form_validation->set_rules('nama_kategori_seo', 'Nama Kategori SEO', 'trim|required|xss_clean');
-					$this->form_validation->set_rules('aktif', 'aktif', 'trim|required|max_length[1]|xss_clean');
-					$this->form_validation->set_rules('action', 'action', 'trim|required|xss_clean');
-				}
-				else
-				{
-					$this->form_validation->set_rules('id_kategori', 'Kategori ', 'trim|required|numeric|xss_clean');
-					$this->form_validation->set_rules('nama_kategori', 'Nama Kategori ', 'trim|required|xss_clean');
-					$this->form_validation->set_rules('nama_kategori_seo', 'Nama Kategori SEO', 'trim|required|xss_clean');
-					$this->form_validation->set_rules('aktif', 'aktif', 'trim|required|max_length[1]|xss_clean');
-					$this->form_validation->set_rules('action', 'action', 'trim|required|xss_clean');
-				}
-				
+				$this->form_validation->set_rules('id_kategori', 'Kategori ', 'trim|required|numeric|xss_clean');
+				$this->form_validation->set_rules('nama_kategori', 'Nama Kategori ', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('nama_kategori_seo', 'Nama Kategori SEO', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('aktif', 'aktif', 'trim|required|max_length[1]|xss_clean');
+				$this->form_validation->set_rules('action', 'action', 'trim|required|xss_clean');
 			
 				if($this->form_validation->run() == TRUE)
 				{
@@ -732,28 +713,11 @@ class Berita extends CI_Controller {
 					}
 					elseif($this->input->post("action")	== "add")
 					{
-						$insert = array("nama_kategori" => $this->input->post("nama_kategori"),
-								"kategori_seo" => preg_replace('/[^a-zA-Z0-9\']/', '-', $this->input->post("nama_kategori_seo")),
-								"aktif"		=> $this->input->post("aktif")
-								);
-						$data = $this->beritamodel->insertkategori($insert);
-						unset($insert);
-						if($data)
-						{
-							unset($data);
-							$data["success"] = "Success!!";
-							echo json_encode($data);
-						}
-						else
-						{
-							unset($data);
-							$data["failed"] = "Failed!!";
-							echo json_encode($data);
-						}
+					
 					}
 					else
 					{
-						show_404();
+					
 					}
 				}
 				else

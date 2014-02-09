@@ -41,16 +41,15 @@
 	z-index: 9999;
 	background: url(<?php echo config_item("base_url");?>public/images/default/loading.gif) 50% 50% no-repeat white;
 }
-
 	</style>
  
 <body class="fixed-top">
-  
+   <!-- BEGIN HEADER  -->
 	<div id="loading"></div>
-   	   <!-- BEGIN HEADER -->
+<!-- BEGIN HEADER -->
    <div id="header" class="navbar navbar-inverse navbar-fixed-top">
        <!-- BEGIN TOP NAVIGATION BAR -->
-       <div class="navbar-inner">
+       <div class="navbar-inner" style="background:none repeat scroll 0 0 #4A8BC2">
            <div class="container-fluid" style="background:none repeat scroll 0 0 #4A8BC2">
                <!--BEGIN SIDEBAR TOGGLE-->
                <div class="sidebar-toggle-box hidden-phone">
@@ -279,13 +278,11 @@
                        <li class="dropdown">
                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                <img src="img/avatar1_small.jpg" alt="">
-                               <span class="username"><?php echo $this->session->userdata('username');?></span>
+                               <span class="username"><?php echo ucfirst($this->session->userdata("username"));?></span>
                                <b class="caret"></b>
                            </a>
                            <ul class="dropdown-menu extended logout">
-                               <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
-                               <li><a href="<?php echo config_item('base_url')."user/edit/".$this->session->userdata("username");?>"><i class="icon-cog"></i> My Settings</a></li>
-                               <li><a href="<?php echo config_item('base_url')."logout";?>"><i class="icon-key"></i> Log Out</a></li>
+								<li><a href="<?php echo config_item("base_url")."logout";?>"><i class="icon-key"></i> Log Out</a></li>
                            </ul>
                        </li>
                        <!-- END USER LOGIN DROPDOWN -->
@@ -296,7 +293,7 @@
        </div>
        <!-- END TOP NAVIGATION BAR -->
    </div>
-   <!-- END HEADER -->
+   <!-- END HEADER --> 
    <!-- BEGIN CONTAINER -->
    <div id="container" class="row-fluid">
       <!-- BEGIN SIDEBAR -->
@@ -328,15 +325,15 @@
                    
                   <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                    <h3 class="page-title">
-                     Welcome <?php echo $this->session->userdata("username"); ?> <a href="#"><i class="icon-reorder"></i></a>
+                     Manage <?php echo $function; ?>  <a href="#"><i class="icon-reorder"></i></a>
                    </h3>
                    <ul class="breadcrumb">
                        <li>
-                           <a href="<?php echo config_item('base_url');?>admin">Home</a>
+                           <a href="<?php echo config_item('base_url');?>dashboard">Home</a>
                            <span class="divider">/</span>
                        </li>
                        <li>
-                           <a href="#">Admin Dashboard <?php echo config_item("base_url"); ?></a>
+                           <a href="#">Manage <?php echo $function; ?> </a>
                           
                        </li>
                        
@@ -356,71 +353,29 @@
                 <div class="span12">
 				
                 <!-- Penambahan Widget Philtyphil -->
-                    <div class="widget blue">
+                    <div class="widget purple">
                         <div class="widget-title">
-                        <h4><i class="icon-male"></i> Admin Dashboard <?php echo $this->session->userdata("username");?> </h4>
+                        <h4><i class="icon-tasks"></i> <?php echo $function; ?>  </h4>
                             <span class="tools">
                                 <a href="javascript:;" class="icon-chevron-down"></a>
                             </span>
                         </div>
-                        <div class="widget-body" >
-                             <div id="chart-2" class="chart"></div>
+                        <div class="widget-body" id="loaderberita">
+                            <div id="addButton" style="margin-bottom:20px;">
+								<button type="button" class="btn btn-primary" onclick="javascript:window.location.href='<?php echo config_item("base_url");?>berita/widgetadd/<?php echo $id;?>'">
+									<i class="icon-plus-sign"></i> Add Widget
+								</button>
+							</div>
+							<!-- <table class="table table-striped table-bordered" id="users">-->
+							
+							<table class="table " id="widget">
+							<thead>
+								<th>Widget <?php echo $widget[0]['nama_sub'];?> TimeLine</th>
+							</thead>
+							<tbody ></tbody>
+							</table>
                         </div>
                     </div>
-					<div class="row-fluid">
-						<div class="span6">
-							<div class="widget orange">
-                            <div class="widget-title">
-                                <h4><i class="icon-reorder"></i> Top 5 site</h4>
-							<span class="tools">
-							<a href="javascript:;" class="icon-chevron-down"></a>
-                            <a href="javascript:;" class="icon-remove"></a>
-							</span>
-                            </div>
-                            <div class="widget-body">
-								<div class="row-fluid">
-								<?php foreach($top5site as $key => $f): ?>
-								<blockquote class="pull-right">
-									<p><?php echo $f["judul"];?></p>
-									<small>Dibaca <cite title="Source Title"><?php echo $f["dibaca"];?></cite></small>
-								
-								</blockquote>
-								<?php endforeach;?>
-								</div>
-                            </div>
-							</div>
-						</div>
-						<div class="span6">
-							<div class="widget orange">
-                            <div class="widget-title">
-                                <h4><i class="icon-reorder"></i> Komentar</h4>
-							<span class="tools">
-							<a href="javascript:;" class="icon-chevron-down"></a>
-                            <a href="javascript:;" class="icon-remove"></a>
-							</span>
-                            </div>
-							<!-- Last Komentar -->
-                            <div class="widget-body">
-							<?php foreach($komentar as $key => $value): ?>
-								<div class="row-fluid">
-                                    <div class="green-box-blog">
-									
-                                        <div class="span12">
-											<blockquote>
-												<p><?php echo $value["isi_komentar"]; ?></p>
-												<small><?php echo $value['tgl'];?>  <?php echo $value['jam_komentar'];?> <cite title="Source Title"><?php echo $value['nama_komentar'];?></cite></small>
-											</blockquote>
-										    
-                                        </div>
-                                   
-									</div>
-                                </div>
-							 <?php endforeach; ?>
-                            </div>
-							</div>
-						</div>
-					</div>
-					</div>
                 <!-- End Of Penambahan Widget Philtyphil -->
                </div>
             </div>
@@ -435,7 +390,7 @@
 
    <!-- BEGIN FOOTER -->
    <div id="footer">
-       2013 &copy; Philtyphil Dashboard.
+       2013 &copy; CMS Philtyphil Philantrophist .
    </div> 
    
 
@@ -449,6 +404,25 @@
 			}
 		}	
 	?>
+	<script type="text/javascript">
+	$('#widget').dataTable({
+        "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+        "sPaginationType": "bootstrap",
+        "oLanguage": {
+            "sLengthMenu": "_MENU_ records per page",
+            "oPaginate": {
+                "sPrevious": "Prev",
+                "sNext": "Next"
+            }
+        },
+        "aoColumnDefs": [{
+            'bSortable': false,'aTargets': [0]
+        }],
+        "sAjaxSource": "<?php echo config_item('base_url');?>berita/getwidget/<?php echo $id; ?>",
+        "bProcessing": true,
+        "bServerSide": true,
+    });
+	</script>
 	<!-- End of javascript -->
 </body>
 </html>

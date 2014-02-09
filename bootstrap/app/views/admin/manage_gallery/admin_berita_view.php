@@ -41,13 +41,12 @@
 	z-index: 9999;
 	background: url(<?php echo config_item("base_url");?>public/images/default/loading.gif) 50% 50% no-repeat white;
 }
-
 	</style>
  
 <body class="fixed-top">
-  
-	<div id="loading"></div>
-   	   <!-- BEGIN HEADER -->
+   <!-- BEGIN HEADER  
+	<div id="loading"></div>-->
+	   <!-- BEGIN HEADER -->
    <div id="header" class="navbar navbar-inverse navbar-fixed-top">
        <!-- BEGIN TOP NAVIGATION BAR -->
        <div class="navbar-inner">
@@ -284,7 +283,7 @@
                            </a>
                            <ul class="dropdown-menu extended logout">
                                <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
-                               <li><a href="<?php echo config_item('base_url')."user/edit/".$this->session->userdata("username");?>"><i class="icon-cog"></i> My Settings</a></li>
+                               <li><a href="#"><i class="icon-cog"></i> My Settings</a></li>
                                <li><a href="<?php echo config_item('base_url')."logout";?>"><i class="icon-key"></i> Log Out</a></li>
                            </ul>
                        </li>
@@ -328,20 +327,20 @@
                    
                   <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                    <h3 class="page-title">
-                     Welcome <?php echo $this->session->userdata("username"); ?> <a href="#"><i class="icon-reorder"></i></a>
+                     Manage <?php echo $function; ?>  <a href="#"><i class="icon-reorder"></i></a>
                    </h3>
                    <ul class="breadcrumb">
                        <li>
-                           <a href="<?php echo config_item('base_url');?>admin">Home</a>
+                           <a href="<?php echo config_item('base_url');?>dashboard">Home</a>
                            <span class="divider">/</span>
                        </li>
                        <li>
-                           <a href="#">Admin Dashboard <?php echo config_item("base_url"); ?></a>
+                           <a href="<?php echo config_item('base_url').$function;?>">Manage <?php echo $function; ?> </a>
                           
                        </li>
                        
                        <li class="pull-right search-wrap">
-                           <form action="http://thevectorlab.net/metrolab/search_result.html" class="hidden-phone">
+                           <form action="<?php echo config_item('base_url')."public/images/default/AAAAAA&text=no+image.gif";?>" class="hidden-phone">
                                <div class="input-append search-input-area">
                                    <input class="" id="appendedInputButton" type="text"/>
                                    <button class="btn" type="button"><i class="icon-search"></i> </button>
@@ -356,71 +355,34 @@
                 <div class="span12">
 				
                 <!-- Penambahan Widget Philtyphil -->
-                    <div class="widget blue">
+                    <div class="widget widget-tabs black">
                         <div class="widget-title">
-                        <h4><i class="icon-male"></i> Admin Dashboard <?php echo $this->session->userdata("username");?> </h4>
+                        <h4><i class="icon-tasks"></i> <?php echo ucfirst($function); ?>  </h4>
                             <span class="tools">
                                 <a href="javascript:;" class="icon-chevron-down"></a>
                             </span>
                         </div>
                         <div class="widget-body" >
-                             <div id="chart-2" class="chart"></div>
+                            <div class="tabbable ">
+								<ul class="nav nav-tabs">
+								<li ><a href="#widget_tab1" data-toggle="tab">Manage Kategori</a></li>
+									<li class="active"><a href="#widget_tab2" data-toggle="tab">List Blog</a></li>
+									
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane active" id="widget_tab2">
+										<div id="loaderberita">
+										</div>
+									</div>
+									<div class="tab-pane active" id="widget_tab1">
+										<div id="manage_kategori">
+										</div>
+									</div>
+								</div>
+								
+							</div>
                         </div>
                     </div>
-					<div class="row-fluid">
-						<div class="span6">
-							<div class="widget orange">
-                            <div class="widget-title">
-                                <h4><i class="icon-reorder"></i> Top 5 site</h4>
-							<span class="tools">
-							<a href="javascript:;" class="icon-chevron-down"></a>
-                            <a href="javascript:;" class="icon-remove"></a>
-							</span>
-                            </div>
-                            <div class="widget-body">
-								<div class="row-fluid">
-								<?php foreach($top5site as $key => $f): ?>
-								<blockquote class="pull-right">
-									<p><?php echo $f["judul"];?></p>
-									<small>Dibaca <cite title="Source Title"><?php echo $f["dibaca"];?></cite></small>
-								
-								</blockquote>
-								<?php endforeach;?>
-								</div>
-                            </div>
-							</div>
-						</div>
-						<div class="span6">
-							<div class="widget orange">
-                            <div class="widget-title">
-                                <h4><i class="icon-reorder"></i> Komentar</h4>
-							<span class="tools">
-							<a href="javascript:;" class="icon-chevron-down"></a>
-                            <a href="javascript:;" class="icon-remove"></a>
-							</span>
-                            </div>
-							<!-- Last Komentar -->
-                            <div class="widget-body">
-							<?php foreach($komentar as $key => $value): ?>
-								<div class="row-fluid">
-                                    <div class="green-box-blog">
-									
-                                        <div class="span12">
-											<blockquote>
-												<p><?php echo $value["isi_komentar"]; ?></p>
-												<small><?php echo $value['tgl'];?>  <?php echo $value['jam_komentar'];?> <cite title="Source Title"><?php echo $value['nama_komentar'];?></cite></small>
-											</blockquote>
-										    
-                                        </div>
-                                   
-									</div>
-                                </div>
-							 <?php endforeach; ?>
-                            </div>
-							</div>
-						</div>
-					</div>
-					</div>
                 <!-- End Of Penambahan Widget Philtyphil -->
                </div>
             </div>
@@ -435,10 +397,22 @@
 
    <!-- BEGIN FOOTER -->
    <div id="footer">
-       2013 &copy; Philtyphil Dashboard.
+       2013 &copy; CMS Philtyphil Philantrophist .
    </div> 
    
-
+<div id="ModalConfirm" class="modal hide fade out" aria-hidden="false" aria-labelledby="myModalLabel3" role="dialog" tabindex="-1" style="display: block;">
+<div class="modal-header">
+<button class="close" aria-hidden="true" data-dismiss="modal" type="button">&#215;</button>
+<h3 id="myModalLabel3">Confirm Action</h3>
+</div>
+<div class="modal-body">
+<p>Are you sure want to delete this category??</p>
+</div>
+<div class="modal-footer">
+<button class="btn" aria-hidden="true" data-dismiss="modal">Close</button>
+<button class="btn btn-primary" data-dismiss="modal" onclick="deleting_kategori()" rel="tes">Confirm</button>
+</div>
+</div>
 	
 	<!-- Javascript place -->
 	<?php

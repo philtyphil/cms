@@ -1,5 +1,5 @@
 <?php
-class Beritamodel extends CI_Model{
+class Gallerymodel extends CI_Model{
 	private $db;
 	function __construct()
 	{
@@ -799,19 +799,6 @@ class Beritamodel extends CI_Model{
 	{
 		$this->db->where("id_kategori",$id);
 		$data = $this->db->delete("kategori");
-		if($data)
-		{
-			return $data;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	function insertkategori($insert)
-	{
-		$data = $this->db->insert("kategori",$insert);
 		if($data)
 		{
 			return $data;

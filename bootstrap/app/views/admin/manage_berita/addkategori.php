@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-	<meta name="author" content="philtyphils">
-	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-    <meta charset="utf-8">
+    <head>
+    <meta name="author" content="philtyphils">
+    <meta charset="utf-8">  
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Content Managament System Of Philtyphil">
 
     <title><?php echo $title; ?></title>
    
 	<?php
+            
 		echo $url_js;
 		if(isset($css) && is_array($css) && count($css) > 0){
 			foreach($css as $link){
@@ -41,13 +41,11 @@
 	z-index: 9999;
 	background: url(<?php echo config_item("base_url");?>public/images/default/loading.gif) 50% 50% no-repeat white;
 }
-
 	</style>
  
 <body class="fixed-top">
-  
 	<div id="loading"></div>
-   	   <!-- BEGIN HEADER -->
+     	<!-- BEGIN HEADER -->
    <div id="header" class="navbar navbar-inverse navbar-fixed-top">
        <!-- BEGIN TOP NAVIGATION BAR -->
        <div class="navbar-inner">
@@ -328,20 +326,20 @@
                    
                   <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                    <h3 class="page-title">
-                     Welcome <?php echo $this->session->userdata("username"); ?> <a href="#"><i class="icon-reorder"></i></a>
+                     Manage <?php echo ucfirst($function); ?>  Kategori <b>Add</b> <a href="#"><i class="icon-reorder"></i></a>
                    </h3>
                    <ul class="breadcrumb">
                        <li>
-                           <a href="<?php echo config_item('base_url');?>admin">Home</a>
+                           <a href="<?php echo config_item('base_url');?>dashboard">Home</a>
                            <span class="divider">/</span>
                        </li>
                        <li>
-                           <a href="#">Admin Dashboard <?php echo config_item("base_url"); ?></a>
+                           <a href="#">Manage <?php echo ucfirst($function); ?> Kategori <b> Add</b> </a>
                           
                        </li>
                        
                        <li class="pull-right search-wrap">
-                           <form action="http://thevectorlab.net/metrolab/search_result.html" class="hidden-phone">
+                           <form action="#" class="hidden-phone">
                                <div class="input-append search-input-area">
                                    <input class="" id="appendedInputButton" type="text"/>
                                    <button class="btn" type="button"><i class="icon-search"></i> </button>
@@ -356,71 +354,57 @@
                 <div class="span12">
 				
                 <!-- Penambahan Widget Philtyphil -->
-                    <div class="widget blue">
+                    <div class="widget red">
                         <div class="widget-title">
-                        <h4><i class="icon-male"></i> Admin Dashboard <?php echo $this->session->userdata("username");?> </h4>
+                        <h4><i class="icon-tasks"></i> <?php echo ucfirst($function); ?> Add  </h4>
                             <span class="tools">
                                 <a href="javascript:;" class="icon-chevron-down"></a>
                             </span>
                         </div>
-                        <div class="widget-body" >
-                             <div id="chart-2" class="chart"></div>
-                        </div>
-                    </div>
-					<div class="row-fluid">
-						<div class="span6">
-							<div class="widget orange">
-                            <div class="widget-title">
-                                <h4><i class="icon-reorder"></i> Top 5 site</h4>
-							<span class="tools">
-							<a href="javascript:;" class="icon-chevron-down"></a>
-                            <a href="javascript:;" class="icon-remove"></a>
-							</span>
-                            </div>
-                            <div class="widget-body">
-								<div class="row-fluid">
-								<?php foreach($top5site as $key => $f): ?>
-								<blockquote class="pull-right">
-									<p><?php echo $f["judul"];?></p>
-									<small>Dibaca <cite title="Source Title"><?php echo $f["dibaca"];?></cite></small>
-								
-								</blockquote>
-								<?php endforeach;?>
-								</div>
-                            </div>
+                        <div class="widget-body">
+							<!-- Begin NOTIFIKASI ERROR -->
+							<div class="alert alert-block alert-info" style="display:none;" id="success">
+								<button class="close" type="button" data-dismiss="alert">&#215;</button>
+								<h4 class="alert-heading">Success!</h4>
+								<p> Manage Kategori Berita Success!!. Congratulation!! </p>
 							</div>
-						</div>
-						<div class="span6">
-							<div class="widget orange">
-                            <div class="widget-title">
-                                <h4><i class="icon-reorder"></i> Komentar</h4>
-							<span class="tools">
-							<a href="javascript:;" class="icon-chevron-down"></a>
-                            <a href="javascript:;" class="icon-remove"></a>
-							</span>
-                            </div>
-							<!-- Last Komentar -->
-                            <div class="widget-body">
-							<?php foreach($komentar as $key => $value): ?>
-								<div class="row-fluid">
-                                    <div class="green-box-blog">
-									
-                                        <div class="span12">
-											<blockquote>
-												<p><?php echo $value["isi_komentar"]; ?></p>
-												<small><?php echo $value['tgl'];?>  <?php echo $value['jam_komentar'];?> <cite title="Source Title"><?php echo $value['nama_komentar'];?></cite></small>
-											</blockquote>
-										    
-                                        </div>
-                                   
-									</div>
+							<div class="alert alert-block alert-error" style="display:none;" id="error">
+								<button class="close" type="button" data-dismiss="alert">&#215;</button>
+								<h4 class="alert-heading">Error!</h4>
+								<p id="error_notif"> </p>
+							</div>
+							<!-- END OF NOTIFIKASI -->
+							<div action="#" class="form-horizontal" >
+								<div class="control-group" id="nama_kategori">
+                                     <label class="control-label" for="inputError">Nama Kategori</label>
+                                     <div class="controls">
+                                         <input type="hidden" id="id_kategori_edit" value=""/>
+										 <input type="text" id="edit_nama_kategori" value="" placeholder="Nama Kategori" class="span6  tooltips" data-trigger="hover"  data-original-title="Nama Kategori" />
+                                         <span class="help-inline" id="error_nama_kategori"></span>
+                                     </div>
                                 </div>
-							 <?php endforeach; ?>
-                            </div>
+								<div class="control-group" id="nama_kategori">
+                                     <label class="control-label" for="inputError">Kategori-SEO</label>
+                                     <div class="controls">
+                                         <input type="text" readonly="readonly" id="edit_nama_kategori_SEO" value="" class="span6  tooltips" data-trigger="hover"  data-original-title="Kategori SEO" />
+                                         <span class="help-inline" id="error_kategori_seo"></span>
+                                     </div>
+                                </div>
+								<div class="control-group" id="nama_kategori">
+                                     <label class="control-label" for="inputError">Aktif</label>
+                                     <div class="controls">
+										<input type="radio" name="aktif" value="Y" class="tooltips" data-trigger="hover"  data-original-title="AKTIF" checked /> Y <br/>
+                                         <input type="radio" name="aktif" value="N" class="tooltips" data-trigger="hover"  data-original-title="NON-AKTIF"  /> N <br/>
+                                        <span class="help-inline" id="error_aktif"></span>
+                                     </div>
+                                </div>
+								<div class="form-actions">
+                                     <button type="button" class="btn btn-success tooltips" id="saved_kategori" data-trigger="hover"  data-original-title="Click To Save">Save</button>
+                                     <a href="<?php echo config_item("base_url")."berita";?>"><button type="button" class="btn">Cancel</button></a>
+                                 </div>
 							</div>
 						</div>
-					</div>
-					</div>
+                    </div>
                 <!-- End Of Penambahan Widget Philtyphil -->
                </div>
             </div>
@@ -435,11 +419,11 @@
 
    <!-- BEGIN FOOTER -->
    <div id="footer">
-       2013 &copy; Philtyphil Dashboard.
+       2013 &copy; CMS Philtyphil Philantrophist
    </div> 
-   
+<!-- MODAL CONFIRM-->
 
-	
+<!-- END OF MODAL CONFIRM -->
 	<!-- Javascript place -->
 	<?php
 		if(isset($javascript) && is_array($javascript) && count($javascript) > 0){

@@ -168,6 +168,7 @@ $config['register']								= "public/js/register.js";
 $config['admin_dashboard'] 						= "public/js/manage_user/admin_user.js";
 $config['admin_berita'] 						= "public/js/manage_berita/admin_berita.js";
 $config['admin_berita_widget'] 					= "public/js/manage_berita/admin_berita_widget.js";
+$config['admin_berita_widget'] 					= "public/js/manage_gallery/gallery.js";
 $config['add_berita'] 							= "public/js/manage_berita/add_berita.js";
 $config['add_user'] 							= "public/js/manage_user/add_user.js";
 $config['profil'] 								= "public/js/manage_profil/profil.js";

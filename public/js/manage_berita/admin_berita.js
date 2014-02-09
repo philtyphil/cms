@@ -150,14 +150,28 @@ function editkategoriberita(id)
 function savekategorieditberita()
 {
 	var url=base_url+"berita/saveberitakategori";
-	var data = {
+	if($("#id_kategori_edit").val() == "" || typeof($("#id_kategori_edit")) == "undefined")
+	{
+		var data = {
+		nama_kategori		: $("#edit_nama_kategori").val(),
+		nama_kategori_seo	: $("#edit_nama_kategori_SEO").val(),
+		aktif				: $("input[name='aktif']:radio").val(),
+		action				: "add",
+		submit				: "submit"
+		};
+	}
+	else
+	{
+		var data = {
 		id_kategori 		: $("#id_kategori_edit").val(),
 		nama_kategori		: $("#edit_nama_kategori").val(),
 		nama_kategori_seo	: $("#edit_nama_kategori_SEO").val(),
 		aktif				: $("input[name='aktif']:radio").val(),
 		action				: "edit",
 		submit				: "submit"
-	};
+		};
+	}
+	
 	$.post(url,data,function(data){
 		if(data.success != "" && typeof(data.success) != "undefined")
 		{
